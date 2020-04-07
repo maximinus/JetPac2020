@@ -1,0 +1,22 @@
+TODO:
+=====
+
+Programming:
+------------
+
+Build tilemap
+Add player
+Make player fly around screen
+
+Graphics:
+---------
+
+Player  
+Rocket
+Different aliens
+Fuel tanks
+Rewards
+Bullets
+Explosion
+Flames from rocket and jetpac
+Different platforms for each level
