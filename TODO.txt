@@ -8,9 +8,9 @@ Programming:
 * Add player
 * Make player fly around screen
 * Add enemies
-Split platforms and floor
-Make enemies have an angle
-Enemies collide with platforms / bounce off floor
+* Split platforms and floor
+* Make enemies have an angle
+* Enemies collide with platforms / bounce off floor
 Add a laser
 Enemies collide with laser
 Add font and then lives / points
