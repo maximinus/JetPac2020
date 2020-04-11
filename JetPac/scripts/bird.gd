@@ -9,6 +9,7 @@ const MAX_ANGLE = (30.0 / 360.0) * (2 * PI)
 var speed = Vector2(0, 0)
 
 signal died
+signal score
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -74,3 +75,8 @@ func _on_Area2D_body_entered(body):
 func _on_DeathTimer_timeout():
 	# Bird is dead, remove from tree and send signal
 	killBird(false)
+
+func _on_Area2D_area_entered(area):
+	if area.is_in_group("bullet"):
+		killBird(true)
+		emit_signal("score")

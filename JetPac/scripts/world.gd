@@ -1,7 +1,7 @@
 extends Node2D
 
-const MAX_ENEMIES = 12
-const MIN_ENEMIES = 4
+const MAX_ENEMIES = 30
+const MIN_ENEMIES = 10
 # this is as a %/100 per frame, so it needs to be low
 const NEW_ENEMY_CHANCE = 0.01
 const YSTART_MIN = 64

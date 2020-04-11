@@ -1,12 +1,14 @@
 extends KinematicBody2D
 
 const SPEED = 250
-const GRAVITY = 300
-const THRUST = 700
-const MAX_THRUST = -20
+const GRAVITY = 350
+const THRUST = 800
+const MAX_THRUST = -300
 const WRAP_MAX = 1056
 const WRAP_MIN = -32
 const WRAP_DELTA = 1024
+
+const bullet = preload("res://scenes/bullet.tscn")
 
 var velocity
 var can_fire = true
@@ -21,8 +23,11 @@ func getMoveInput(delta):
 	if Input.is_action_pressed("move_right"):
 		velocity.x += SPEED
 	if Input.is_action_pressed("jetpac"):
-		velocity.y -= THRUST * delta
-		velocity.y = min(velocity.y, MAX_THRUST)
+		# do not thrust if high on the screen
+		if position.y > 10:
+			velocity.y -= THRUST * delta
+			velocity.y = max(velocity.y, MAX_THRUST)
+	print(velocity.y)
 	if velocity.x == 0 and is_on_floor() == true:
 		$AnimatedSprite.play("walk")
 		$AnimatedSprite.stop()
@@ -47,13 +52,20 @@ func checkWrap():
 		position.x += WRAP_DELTA
 
 func checkFire():
-	if can_fire == false:
+	if not Input.is_action_pressed("fire"):
 		return
-	if Input.is_action_pressed("fire"):
-		print("Fire!")
+	var bullet_direction = 0
+	var new_bullet = bullet.instance()
+	if $AnimatedSprite.flip_h == false:
+		# firing left
+		bullet_direction = -1
+	else:
+		bullet_direction = 1
+	new_bullet.init(bullet_direction, position)
+	get_parent().add_child(new_bullet)
 	# start a timer that blocks firing again
-	can_fire = false
-	$FireTimer.start()
+	#can_fire = false
+	#$FireTimer.start()
 
 func _on_FireTimer_timeout():
 	can_fire = true
