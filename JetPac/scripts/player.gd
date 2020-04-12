@@ -10,8 +10,11 @@ const WRAP_DELTA = 1024
 
 const bullet = preload("res://scenes/bullet.tscn")
 
+signal dropping
+
 var velocity
 var can_fire = true
+var update_rocket = null
 
 func _ready():
 	velocity = Vector2(0, 0)
@@ -69,6 +72,27 @@ func checkFire():
 func _on_FireTimer_timeout():
 	can_fire = true
 
+func checkRocketDrop():
+	if update_rocket.position.x > 649.5 and update_rocket.position.x < 650.5:
+		print("Dropping")
+		update_rocket.position.x = 650
+		# start the drop
+		emit_signal("dropping", update_rocket)
+		update_rocket = null
+
+func setRocketPosition():
+	update_rocket.position = position
+	update_rocket.position.y += 10
+	checkRocketDrop()
+
+func setRocket(rocket):
+	update_rocket = rocket
+	setRocketPosition()
+
+func moveRocket():
+	if update_rocket != null:
+		setRocketPosition()
+
 func _physics_process(delta):
 	checkWrap()
 	getMoveInput(delta)
@@ -77,3 +101,4 @@ func _physics_process(delta):
 	if is_on_floor():
 		velocity.y = 0.0 
 	checkFire()
+	moveRocket()

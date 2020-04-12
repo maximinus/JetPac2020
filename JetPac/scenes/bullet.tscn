@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://gfx/bullet.png" type="Texture" id=1]
-[ext_resource path="res://scenes/bullet.gd" type="Script" id=2]
+[ext_resource path="res://scripts/bullet.gd" type="Script" id=2]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "bullet"
 length = 0.6
 tracks/0/type = "value"
@@ -19,7 +19,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1.90649, 1.94842 )
 
 [node name="Area2D" type="Area2D" groups=[
@@ -32,10 +32,10 @@ texture = ExtResource( 1 )
 offset = Vector2( -21.5, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
-anims/bullet = SubResource( 2 )
+anims/bullet = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="BulletTimer" type="Timer" parent="."]
 wait_time = 1.2

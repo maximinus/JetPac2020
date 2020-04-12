@@ -8,16 +8,34 @@ const YSTART_MIN = 64
 const YSTART_MAX = 696
 
 const BIRD = preload("res://scenes/bird.tscn")
+const cn = preload("res://scripts/constants.gd")
 
 var enemies = 0
+var expected_rocket = cn.PART.BOTTOM
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	# connect rocket signals
+	$RocketBottom.connect("pickup", self, "pickupRocket")
+	$RocketMiddle.connect("pickup", self, "pickupRocket")
+	$RocketTop.connect("pickup", self, "pickupRocket")
+
+func pickupRocket(rocket):
+	if expected_rocket != rocket.rocket_part:
+		return
+	if $Player.update_rocket != null:
+		# already carrying, so ignore this signal
+		return
+	# pickup the rocket
+	$Player.setRocket(rocket)
 
 func enemyDied():
 	if enemies > 0:
 		enemies -= 1
+
+func incrementScore(score):
+	$Control.incrementScore(score)
 
 func createNewEnemy():
 	# get the starting y position
@@ -28,6 +46,7 @@ func createNewEnemy():
 	new_enemy.init(starty)
 	# connect the signal
 	new_enemy.connect("died", self, "enemyDied")
+	new_enemy.connect("score", self, "incrementScore")
 	# add the new entity
 	add_child(new_enemy)
 	enemies += 1

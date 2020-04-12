@@ -11,9 +11,18 @@ Programming:
 * Split platforms and floor
 * Make enemies have an angle
 * Enemies collide with platforms / bounce off floor
-Add a laser
-Enemies collide with laser
-Add font and then lives / points
+* Add a laser
+* Enemies collide with laser
+Add font and top display
+Scores update
+Scatter rocket
+Player can pick up rocket
+Player can drop rocket
+Fuel cells drop
+Player can fill up rocket
+Player enters full rocket
+Rocket takes off
+
 
 Graphics:
 ---------

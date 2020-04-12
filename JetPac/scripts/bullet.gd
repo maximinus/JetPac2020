@@ -3,7 +3,7 @@ extends Area2D
 const WRAP_MAX = 1070
 const WRAP_MIN = -46
 const WRAP_DELTA = 1070
-const BULLET_SPEED = 1000
+const BULLET_SPEED = 1200
 
 var speed = 0
 

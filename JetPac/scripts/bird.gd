@@ -79,4 +79,8 @@ func _on_DeathTimer_timeout():
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("bullet"):
 		killBird(true)
-		emit_signal("score")
+		emit_signal("score", 10)
+		# remove the bullet as well
+		area.queue_free()
+	elif area.is_in_group("rocket"):
+		killBird(true)
