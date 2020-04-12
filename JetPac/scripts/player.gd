@@ -27,7 +27,6 @@ func getMoveInput(delta):
 		if position.y > 10:
 			velocity.y -= THRUST * delta
 			velocity.y = max(velocity.y, MAX_THRUST)
-	print(velocity.y)
 	if velocity.x == 0 and is_on_floor() == true:
 		$AnimatedSprite.play("walk")
 		$AnimatedSprite.stop()
@@ -52,7 +51,7 @@ func checkWrap():
 		position.x += WRAP_DELTA
 
 func checkFire():
-	if not Input.is_action_pressed("fire"):
+	if not Input.is_action_pressed("fire") or can_fire == false:
 		return
 	var bullet_direction = 0
 	var new_bullet = bullet.instance()
@@ -64,8 +63,8 @@ func checkFire():
 	new_bullet.init(bullet_direction, position)
 	get_parent().add_child(new_bullet)
 	# start a timer that blocks firing again
-	#can_fire = false
-	#$FireTimer.start()
+	can_fire = false
+	$FireTimer.start()
 
 func _on_FireTimer_timeout():
 	can_fire = true
