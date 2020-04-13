@@ -33,10 +33,15 @@ func getMoveInput(delta):
 	if velocity.x == 0 and is_on_floor() == true:
 		$AnimatedSprite.play("walk")
 		$AnimatedSprite.stop()
+		$SfxWalking.stop()
 	elif is_on_floor() == false:
 		$AnimatedSprite.play("fly")
+		$SfxWalking.stop()
 	else:
 		$AnimatedSprite.play("walk")
+		# don't restart is already playing
+		if $SfxWalking.playing == false:
+			$SfxWalking.play()
 	# if not moving, so not change direction
 	if velocity.x == 0:
 		return
@@ -99,6 +104,6 @@ func _physics_process(delta):
 	velocity.y += GRAVITY * delta
 	move_and_slide(velocity, Vector2(0, -1))
 	if is_on_floor():
-		velocity.y = 0.0 
+		velocity.y = 0.0
 	checkFire()
 	moveRocket()
