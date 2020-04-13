@@ -15,6 +15,7 @@ signal dropping
 var velocity
 var can_fire = true
 var update_rocket = null
+var old_rocket_position = null
 
 func _ready():
 	velocity = Vector2(0, 0)
@@ -78,12 +79,23 @@ func _on_FireTimer_timeout():
 	can_fire = true
 
 func checkRocketDrop():
-	if update_rocket.position.x > 649.5 and update_rocket.position.x < 650.5:
-		print("Dropping")
-		update_rocket.position.x = 650
-		# start the drop
-		emit_signal("dropping", update_rocket)
-		update_rocket = null
+	# the rocket can easily slide past the area if not careful, so we look
+	# for the transition and not the exact place
+	if old_rocket_position == null:
+		# first time, so just save where we are now
+		old_rocket_position = update_rocket.position.x
+		return
+	# 2 guard clauses are the easiest way to make this scan in gdscript
+	if old_rocket_position > 650.5 and update_rocket.position.x > 650:
+		return
+	if old_rocket_position < 649.5 and update_rocket.position.x < 650:
+		return
+	# so now we must drop the rocket
+	update_rocket.position.x = 650
+	# start the drop
+	emit_signal("dropping", update_rocket)
+	update_rocket = null
+	old_rocket_position = null
 
 func setRocketPosition():
 	update_rocket.position = position

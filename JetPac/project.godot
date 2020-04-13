@@ -19,6 +19,10 @@ config/name="JetPac"
 run/main_scene="res://scenes/BaseLevel.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+helpers="*res://scripts/helpers.gd"
+
 [display]
 
 window/size/height=768

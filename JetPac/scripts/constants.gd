@@ -1,5 +1,6 @@
 enum PART {
 	TOP,
 	MIDDLE,
-	BOTTOM
+	BOTTOM,
+	END
 }
